@@ -1,16 +1,29 @@
 <template>
-    <lightning-card title="Sorting Data in Lightning Datatable in LWC" icon-name="standard:contact" > <br/>
+     <lightning-card title="Delete Selected Rows in Datatable" icon-name="standard:contact" > <br/>
         <div style="width: auto;">
             <template if:true={data}>
-                <lightning-datatable data={data}
+                    <div class="slds-grid slds-gutters">
+                            <div class="slds-col">
+                              <span><p style="margin-left: 5%">Selected Records: <b style="color:red;">{recordsCount}</b></p></span>
+                            </div>
+                            <div class="slds-col">
+                                <span>                    
+                                    <lightning-button label={buttonLabel}
+                                                      icon-name="utility:delete"
+                                                      disabled={isTrue}
+                                                      variant="destructive" 
+                                                      onclick={deleteAccounts}
+                                                      style="margin-left: 40%"></lightning-button>
+                                </span>
+                            </div>
+                        </div><br/>
+
+                    <lightning-datatable data={data}
                                      columns={columns}
                                      key-field="id"
-                                     sorted-by={sortBy}
-                                     sorted-direction={sortDirection}
-                                     onsort={handleSortdata}
-                                     hide-checkbox-column="true"></lightning-datatable>
+                                     onrowselection={getSelectedRecords}></lightning-datatable>
             </template>
 
         </div>
-    </lightning-card>
+    </lightning-card>   
 </template>
