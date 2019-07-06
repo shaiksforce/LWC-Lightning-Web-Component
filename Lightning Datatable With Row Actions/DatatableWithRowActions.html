@@ -1,0 +1,85 @@
+<template>
+     <lightning-card title="Datatable with Row Actions" icon-name="standard:contact" > <br/>
+        <div style="width: auto;">
+            <template if:true={data}>
+
+                <lightning-datatable data={data}
+                                     columns={columns}
+                                     key-field="id"
+                                     hide-checkbox-column="true"
+                                     onrowaction={handleRowActions}></lightning-datatable>
+            </template>
+
+        </div>
+
+        <!-- Spinner -->
+        <div if:true={showLoadingSpinner}>
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+
+        <!-- Detail view modal -->
+        <template if:true={bShowModal}>
+            <section role="dialog" tabindex="-1"
+                    aria-labelledby="modal-heading-01"
+                    aria-modal="true"
+                    aria-describedby="modal-content-id-1"
+                    class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+                    </button>
+                    
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate" if:false={isEditForm}>Record Detail</h2>
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate" if:true={isEditForm}>Update Record Values</h2>
+                </header>
+                <!-- modal body -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" if:false={isEditForm}>
+                    <dl class="slds-list_horizontal slds-wrap">
+                        <dt class="slds-item_label slds-truncate" title="First Name">First Name:</dt>
+                        <dd class="slds-item_detail slds-truncate">{record.FirstName}</dd>
+                        <dt class="slds-item_label slds-truncate" title="LastName">Last Name:</dt>
+                        <dd class="slds-item_detail slds-truncate">{record.LastName}</dd>
+                        <dt class="slds-item_label slds-truncate" title="Phone">Phone :</dt>
+                        <dd class="slds-item_detail slds-truncate"><lightning-formatted-phone value={record.Phone} ></lightning-formatted-phone></dd>
+                        <dt class="slds-item_label slds-truncate" title="Email">Email :</dt>
+                        <dd class="slds-item_detail slds-truncate"><lightning-formatted-email value={record.Email} ></lightning-formatted-email></dd>
+                    </dl>
+                </div>
+                
+                <!-- showing record edit form -->
+                <div if:true={isEditForm} class="slds-theme_default">
+                    <lightning-record-edit-form layout-type="Full" record-id={currentRecordId} object-api-name="Contact" onsubmit={handleSubmit} onsuccess={handleSuccess}>
+                        <lightning-messages></lightning-messages>
+                        <lightning-output-field field-name="AccountId"></lightning-output-field>
+                        <lightning-input-field field-name="FirstName"></lightning-input-field>
+                        <lightning-input-field field-name="LastName"></lightning-input-field>
+                        <lightning-input-field field-name="Email"></lightning-input-field>
+                        <lightning-input-field field-name="Phone"></lightning-input-field><br/>
+                        
+                        <div style="text-align:center;">
+                            <lightning-button class="slds-m-top_small"
+                                              variant="brand"
+                                              type="submit"
+                                              name="update"
+                                              label="Update Record"></lightning-button>
+                        </div>
+                    </lightning-record-edit-form><br/>
+                    <div></div>
+                </div>
+
+                <!-- modal footer start-->
+                <footer class="slds-modal__footer" if:false={isEditForm}>
+                    <lightning-button variant="brand"
+                                      label="Close"
+                                      title="Close"
+                                      onclick={closeModal}></lightning-button>
+                </footer>
+            </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+           
+        </template>
+    </lightning-card>   
+</template>
