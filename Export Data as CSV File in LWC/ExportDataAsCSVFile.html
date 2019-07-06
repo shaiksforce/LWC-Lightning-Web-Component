@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Export Data as CSV in Lightning Web Components" icon-name="custom:custom63">
+        <template if:true={data}>
+            <div class="slds-p-around_medium lgc-bg-inverse">
+                <p>Do you want download data as a CSV format, Click Here &nbsp;
+                    <lightning-button icon-name="utility:download" 
+                                      label="Download as CSV" 
+                                      title="Download CSV File"
+                                      onclick={downloadCSVFile} variant="brand"></lightning-button>
+                </p>
+            </div>
+            <div class="slds-m-around_medium">
+                <!-- Datatable component -->
+                    <lightning-datatable columns={columns} 
+                                         data={data} 
+                                         hide-checkbox-column="true"
+                                         key-field="id"></lightning-datatable>
+            
+            </div>
+        </template>
+    </lightning-card>
+</template>
