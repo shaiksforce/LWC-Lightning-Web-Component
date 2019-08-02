@@ -1,0 +1,25 @@
+<template>
+
+    <lightning-card title="Code Coverage Analysis" icon-name="standard:account"><br/>
+        <div class="slds-grid slds-gutters" style="margin-left: 3%;">
+            <div class="slds-col">
+                <span><b>Total Apex Lines In Org: <b style="color: steelblue">{orgTotalApexLines}</b></b></span>
+            </div>
+            <div class="slds-col">
+                <span><b>Total Apex Lines Covered In Org: <b style="color: steelblue">{OrgTotalCoveredLines}</b></b></span>
+            </div>
+            <div class="slds-col">
+                <span><b>Total Code Coverage In Org: <b style="color: steelblue">{OrgTotalCodeCoverage}</b></b></span>
+            </div>
+        </div><br/>
+
+        <template if:true={data}>
+            <lightning-datatable columns={columns} 
+                                 data={data} 
+                                 key-field="id"
+                                 hide-checkbox-column="true"
+                                 show-row-number-column="true"></lightning-datatable>
+        </template>
+
+    </lightning-card>
+</template>
