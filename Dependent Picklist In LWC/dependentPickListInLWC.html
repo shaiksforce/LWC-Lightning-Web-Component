@@ -1,0 +1,34 @@
+<template>
+    <lightning-card title="Custom Dependent Picklist using Lightning Web Components"><br/>
+        <div class="slds-grid slds-gutters" style="margin-left:3%">
+            <div class="slds-col slds-size_1-of-4">
+                <lightning-combobox label="Account Country" 
+                                    name="country" 
+                                    onchange={handleCountryChange} 
+                                    options={controllingValues} 
+                                    placeholder="--None--" 
+                                    value={selectedCountry}></lightning-combobox><br/>
+                
+                <div if:true={selectedCountry}>
+                    Selected Country: <b>{selectedCountry}</b>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-4">
+                <lightning-combobox label="Account State" 
+                                    name="state"
+                                    onchange={handleStateChange} 
+                                    options={dependentValues} 
+                                    placeholder="--None--" 
+                                    value={selectedState}
+                                    disabled={isEmpty}></lightning-combobox><br/>
+                <div if:true={selectedState}>
+                    Selected State: <b>{selectedState}</b>
+                </div>
+            </div>
+        </div><br/>
+
+        <div if:true={error}>
+            <p>{error}</p>
+        </div>
+    </lightning-card>
+</template>
